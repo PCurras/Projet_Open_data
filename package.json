@@ -1,0 +1,22 @@
+{
+  "name": "projet_open_data-master",
+  "version": "1.0.0",
+  "description": "Création du serveur d'une API web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PCurras/Projet_Open_data.git"
+  },
+  "author": "Pierre Curras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PCurras/Projet_Open_data/issues"
+  },
+  "homepage": "https://github.com/PCurras/Projet_Open_data#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
