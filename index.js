@@ -1,32 +1,44 @@
-var http = require("https");
+var express = require("express");
+var app = express();
+var csv = require('csv-express')
+const fs = require("fs");
 
-var options = {
-	"method": "GET",
-	"hostname": "recipe-puppy.p.rapidapi.com",
-	"port": null,
-	"path": "/?i=banana%",
-	"headers": {
-		"x-rapidapi-host": "recipe-puppy.p.rapidapi.com",
-		"x-rapidapi-key": "bfbccef416msh5d68796c71ff54ep1d47b5jsnd820a352027f"
+app.get('/user/:name', function(req, res) {
+	var age=''+req.query.age;
+	if(age!=="undefined" && age.trim().length){
+	res.send('Hello '  + req.params.name + ' tu as ' + age +' ans');
+	}else{
+	(res.send('Hello '  + req.params.name));
 	}
-};
+})
 
-var req = http.request(options, function (res) {
-	var chunks = [];
+app.get('/index', function(req,res) {
+	fs.readFile('index.html', function(err, html) {
+		if(err){
+			res.writeHead(500, err.message)
+			res.end()
+		} else {
+			res.writeHead(200, {'Content-Type': 'text/html'})
+		}
+		res.write(html)
+		res.end()
+	})
 
-	res.on("data", function (chunk) {
-		chunks.push(chunk);
-	});
+})
 
-	res.on("end", function () {
-		var body = Buffer.concat(chunks);
-		console.log(body.toString());
-	});
-	
-	
-});
+app.get('/names', function(req,res) {
+	res.format({
+		'application/json': function () {
+			res.json([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
+		},
 
-req.end();
+		'application/csv': function () {
+			res.csv([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
+		}
+	})
+})
 
 
-
+app.listen(3000, () => {
+ console.log("Server running on port 3000");
+})
