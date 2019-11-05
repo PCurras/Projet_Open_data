@@ -1,16 +1,7 @@
 var express = require("express");
 var app = express();
-var http = require("http");
-var server = http.createServer();
-var fs = require("fs");
-
-/*server.on('request', function(request, response) {
-	console.log('il y a eut une requete')
-	});*/
-
-app.get('/', function (req, res) {
-    res.send('Hello World!')
-  })
+var csv = require('csv-express')
+const fs = require("fs");
 
 app.get('/user/:name', function(req, res) {
 	var age=''+req.query.age;
@@ -21,33 +12,32 @@ app.get('/user/:name', function(req, res) {
 	}
 })
 
-app.get('/user/names/json', function(req, res) {
-	fs.readFile('names.json', function (err, data) {
-		if (err) {
+app.get('/index', function(req,res) {
+	fs.readFile('index.html', function(err, html) {
+		if(err){
 			res.writeHead(500, err.message)
 			res.end()
 		} else {
-			res.writeHead(200, {
-				'Content-Type': 'application/json'
-			});
-			res.end(data)
+			res.writeHead(200, {'Content-Type': 'text/html'})
+		}
+		res.write(html)
+		res.end()
+	})
+
+})
+
+app.get('/names', function(req,res) {
+	res.format({
+		'application/json': function () {
+			res.json([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
+		},
+
+		'application/csv': function () {
+			res.csv([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
 		}
 	})
-	});
-	
-app.get('/user/names/csv', function(req, res) {
-	fs.readFile('names.csv', function (err, data) {
-		if (err) {
-			res.writeHead(500, err.message)
-			res.end()
-		} else {
-			res.writeHead(200, {
-				'Content-Type': 'text/csv'
-			});
-			res.end(data)
-		}
-	})
-	});
+})
+
 
 app.listen(3000, () => {
  console.log("Server running on port 3000");
