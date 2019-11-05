@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Projet Open Data</title>
+		 
+		<script type="text/javascript">
+			function askJSON(route){
+				console.log('Clicked on JSON')
+
+				var headers = new Headers();
+				headers.append('content-type', 'application/json');
+
+				var myinit = { method: 'GET',
+							   headers: headers };
+				
+				fetch(route, myinit).then(function(reponse) {
+					response.json().then(function(data){
+						document.getElementById("datacontent").innerHTML = JSON.stringify(data)
+						// Affiche les données récupérées dans la div 'datacontent' au format JSON
+					})
+				});
+			}
+
+			function askCSV(route, format){
+				console.log('Clicked on CSV')
+
+				var headers = new Headers();
+				headers.append('content-type', 'text/csv');
+
+				var myinit = { method: 'GET',
+							   headers: headers };
+				
+				fetch(route, myinit).then(function(reponse) {
+					response.blob().then(function(datablob){
+                    	datablob.name = 'newfile.csv'
+                    	anchor = document.createElement('a')
+                   		anchor.download = datablob.name
+                    	anchor.href = window.URL.createObjectURL(datablob)
+                    	anchor.dataset.downloadurl = ['text/csv', anchor.download, anchor.href].join(':')
+                    	anchor.click()
+                	})
+				});
+			}
+		</script>
+	 
+	</head>
+	
+	<body>
+		<div>
+			<div>
+				<div id="Titre">
+					<h1>Test de l'API...</h1>
+				</div>
+			</div>
+			
+			<div id="choix">
+				<p>Choisir le format : </p>
+				<FORM>
+					<input type="radio" name="format" value="json" onclick="askJSON('/names');"> JSON<br>
+					<input type="radio" name="format" value="csv" onclick="askCSV('/names');"> CSV <br>
+				</FORM>
+			</div>
+			<div id="show_response">
+				Réponse : <div id=datacontent>En attente du choix du format</div>
+			</div>
+		</div>
+	</body>
+</html>
