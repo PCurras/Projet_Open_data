@@ -5,7 +5,6 @@
 		<title>Projet Open Data</title>
 		 
 		<script type="text/javascript">
-<<<<<<< HEAD
 			function askJSON(route){
 				console.log('Clicked on JSON')
 
@@ -41,22 +40,6 @@
                     	anchor.dataset.downloadurl = ['text/csv', anchor.download, anchor.href].join(':')
                     	anchor.click()
                 	})
-=======
-			function askData(format){
-				var headers = new Headers();
-				if (format = "json"){
-					str_format = 'application/'+format;
-				}
-				if (format = "csv"){
-					str_format = 'text/'+format;
-				}
-				headers.append('content-type', str_format);
-				var myinit = { method: 'GET',
-							   headers: headers };
-				var request = new Request('127.0.0.1');
-				fetch(request, myinit).then(function(reponse) {
-					console.log(response);
->>>>>>> Côté client HTML + requête (test)
 				});
 			}
 		</script>
@@ -66,11 +49,7 @@
 	<body>
 		<div>
 			<div>
-<<<<<<< HEAD
 				<div id="Titre">
-=======
-				<div id="banniere_titre">
->>>>>>> Côté client HTML + requête (test)
 					<h1>Test de l'API...</h1>
 				</div>
 			</div>
@@ -78,7 +57,6 @@
 			<div id="choix">
 				<p>Choisir le format : </p>
 				<FORM>
-<<<<<<< HEAD
 					<input type="radio" name="format" value="json" onclick="askJSON('/names');"> JSON<br>
 					<input type="radio" name="format" value="csv" onclick="askCSV('/names');"> CSV <br>
 				</FORM>
@@ -86,12 +64,6 @@
 			<div id="show_response">
 				Réponse : <div id=datacontent>En attente du choix du format</div>
 			</div>
-=======
-					<input type="radio" name="format" value="json" onclick="askData(this.getAttribute('value'));"> JSON<br>
-					<input type="radio" name="format" value="csv" onclick="askData(this.getAttribute('value'));"> CSV <br>
-				</FORM>
-			</div>
->>>>>>> Côté client HTML + requête (test)
 		</div>
 	</body>
 </html>
