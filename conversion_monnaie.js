@@ -1,6 +1,6 @@
 var https = require("https");
 
-var options = {
+var options_convert = {
 	"method": "GET",
 	"hostname": "currency-exchange.p.rapidapi.com",
 	"port": null,
@@ -11,7 +11,7 @@ var options = {
 	}
 };
 
-https.get(options, (res) => {
+https.get(options_convert, (res) => {
   console.log('statusCode:', res.statusCode);
   console.log('headers:', res.headers);
 
