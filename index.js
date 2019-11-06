@@ -38,12 +38,14 @@ var req = http.request(options, function (res) {
 
 	res.on("end", function () {
 		var body = Buffer.concat(chunks);
-		console.log(body.toString())
+		var json = JSON.parse(body.toString());
+		var code = json.map(function(data){ return (data['currencies']) });
+		console.log(code.toString());
 		app.get('/names', function(req,res) {
 			res.format({
 				'application/json': function () {
 
-					res.send(body.toString());
+					res.send(body);
 				},
 
 				'application/csv': function () {
