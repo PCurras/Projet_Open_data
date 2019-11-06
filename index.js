@@ -6,12 +6,12 @@ const fs = require("fs");
 
 var options = {
 	"method": "GET",
-	"hostname": "recipe-puppy.p.rapidapi.com",
+	"hostname": "restcountries-v1.p.rapidapi.com",
 	"port": null,
-	"path": "/?i=banana%",
+	"path": "/name/spain",
 	"headers": {
-		"x-rapidapi-host": "recipe-puppy.p.rapidapi.com",
-		"x-rapidapi-key": "bfbccef416msh5d68796c71ff54ep1d47b5jsnd820a352027f"
+		"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+		"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
 	}
 };
 
