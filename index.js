@@ -8,7 +8,7 @@ var options = {
 	"method": "GET",
 	"hostname": "restcountries-v1.p.rapidapi.com",
 	"port": null,
-	"path": "/name/spain",
+	"path": "/name/afghanistan",
 	"headers": {
 		"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
 		"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
@@ -38,16 +38,19 @@ var req = http.request(options, function (res) {
 
 	res.on("end", function () {
 		var body = Buffer.concat(chunks);
-		console.log(body.toString())
+		console.log( 'detail:', body.toString());
+ 		var json = JSON.parse(body);
+		var code = json.map(function(data){ return (data['currencies']) });
+		console.log('monnaie du pays :',code);
 		app.get('/names', function(req,res) {
 			res.format({
 				'application/json': function () {
 
-					res.send(body.toString());
+					res.json(code);
 				},
 
 				'application/csv': function () {
-					res.csv(body.toString());
+					res.csv(code);
 				}
 			})
 		})
