@@ -57,3 +57,7 @@ console.log(test(res.statusCode));
 
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> master
