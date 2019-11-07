@@ -20,6 +20,7 @@
   "dependencies": {
     "csv-express": "^1.2.2",
     "express": "^4.17.1",
-    "fetch": "^1.1.0"
+    "fetch": "^1.1.0",
+    "json2csv": "^4.5.4"
   }
 }

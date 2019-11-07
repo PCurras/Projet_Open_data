@@ -2,22 +2,14 @@ const fs = require("fs");
 var csv = require("csv-express");
 var http = require("https");
 var fetchUrl = require("fetch").fetchUrl;
+const Json2csvparser = require('json2csv').Parser
 
 module.exports = function(app, express) {
     const routes = express.Router();
 
     //TODO FUNCTIONS
 
-    //ROUTES
-
-    app.get('/', function (req, res) {
-        res.send('Hello, vous êtes à la racine de ce serveur ! allez voir /index')
-    })
-
-    var currency = "";
-    var change = "";
-    app.get('/currency/:country' , function(req,res){
-        var name_country = req.params.country;
+    function callAPIfromCountryName(name_country, res) {
         var http = require("https");
 
         var options = {
@@ -32,6 +24,27 @@ module.exports = function(app, express) {
         };
         res.format({
             'application/json': function(){
+                var req1 = http.request(options, function (res1) {
+                    var chunks = [];
+                    res1.on("data", function (chunk) {
+                        chunks.push(chunk);
+                    });
+
+                    res1.on("end", function () {
+                        var body = Buffer.concat(chunks);
+
+                        var json = JSON.parse(body.toString());
+                        var fullbody = json.map(function(data){ return (data) })[0]
+                        console.log(fullbody['currencies'][0],fullbody['population'],fullbody['translations']['fr']);
+                        currency = fullbody['currencies'][0];
+
+                        addConversionMoney(fullbody, res);
+
+                    });
+                });
+                req1.end();
+            },
+            'text/csv': function(){
                 var req1 = http.request(options, function (res1) {
                     var chunks = [];
                     res1.on("data", function (chunk) {
@@ -76,7 +89,13 @@ module.exports = function(app, express) {
 
                                 //res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
                                 fullbody.conversionMoney = change;
-                                res.send(fullbody);
+                                fields = ["name","topLevelDomain","alpha2Code","alpha3Code","callingCodes","capital","altSpellings","region","subregion","population","latlng","demonym","area","gini","timezones","borders","nativeName","numericCode","currencies","languages","translations","relevance","conversionMoney"]
+
+                                json2csvParser = new Json2csvparser({ fields })
+                                csv = json2csvParser.parse(fullbody, function(err){ res.redirect('/')})
+                                res.setHeader('Content-disposition', 'attachment; filename=test.csv')
+                                res.set('Content-Type', 'text/csv')
+                                res.status(200).send(csv)
                             });
                         });
 
@@ -95,11 +114,57 @@ module.exports = function(app, express) {
                 req1.end();
             }
         })
+    }
+
+    function addConversionMoney(fullbody, res) {
+        var http = require("https");
+
+        var options = {
+            "method": "GET",
+            "hostname": "currency-exchange.p.rapidapi.com",
+            "port": null,
+            "path": "/exchange?q=1.0&from=EUR&to="+currency,
+            "headers": {
+                "x-rapidapi-host": "currency-exchange.p.rapidapi.com",
+                "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
+            }
+        };
+
+        var req = http.request(options, function (res2) {
+            var chunks = [];
+
+            res2.on("data", function (chunk) {
+                chunks.push(chunk);
+            });
+
+            res2.on("end", function () {
+                var body = Buffer.concat(chunks);
+
+                console.log(body.toString());
+                change = body.toString();
+
+                //res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
+                fullbody.conversionMoney = change;
+                res.send(fullbody);
+            });
+        });
+
+        req.end();
+    }
+
+    //ROUTES
+
+    app.get('/', function (req, res) {
+        res.send('Hello, vous êtes à la racine de ce serveur ! allez voir /index')
     })
 
+    app.get('/country/:country' , function(req,res){
+        var name_country = req.params.country;
+        callAPIfromCountryName(name_country, res);
+    })
 
     app.get('/index', function(req,res) {
-        fs.readFile('index.html', function(err, html) {
+        fs.readFile('client.html', function(err, html) {
             if(err){
                 res.writeHead(500, err.message)
                 res.end()
@@ -108,6 +173,18 @@ module.exports = function(app, express) {
             }
             res.write(html)
             res.end()
+        })
+    })
+    app.get('/index', function(req, res) {
+        fs.readFile("stylesheet.css", function (err, css) {
+            if(err) {
+                res.writeHead(500, err.message);
+                res.end();
+            } else {
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+            }
+            res.write(css);
+            res.end();
         })
     })
 
