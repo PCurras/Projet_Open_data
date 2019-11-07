@@ -162,7 +162,7 @@
 			fetch(route, 
 						{
 							method: 'GET',
-							headers: {'accept' : 'application/csv'}
+							headers: {'accept' : 'text/csv'}
 						}
 					).then(function(response){
 						response.blob().then(function(datablob)
