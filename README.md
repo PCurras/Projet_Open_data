@@ -21,6 +21,13 @@ Le client pourra choisir son pays de voyage, ainsi que sa monnaie d'origine. Il 
 dans lequel sera disponible le taux de conversion de la monnaie (si plusieurs monnaies sont disponibles dans le pays, alors les différents taux de conversion seront fournis)
 
 
+# REQUETES 
+Différentes requêtes ont été utilisées pour mener à bien ce projet, et récupérer les données nécessaires à notre projet.
+
+La requête permettant de récuperer les noms des pays est la suivante : *"GET https://restcountries-v1.p.rapidapi.com/name/nom_pays"
+
+La requête permettant de récuperer les taux de conversion entre monnaies est la suivante: *"GET https://currency-exchange.p.rapidapi.com/exchange"
+
 # Description du site 
 
 Bienvenue sur Geogr'API ! Vous partez en voyage, ou vous êtes simplement curieux ? 
