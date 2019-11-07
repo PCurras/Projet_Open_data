@@ -150,8 +150,7 @@
 			fetch(route, 
 						{
 							method: 'GET',
-							headers: {'country': 'country/', 
-												'accept' : 'application/json'}
+							headers: {'accept' : 'application/json'}
 						}
 					).then(function(response){
 						response.json().then(function(data)
@@ -164,8 +163,7 @@
 			fetch(route, 
 						{
 							method: 'GET',
-							headers: {'country': 'country/', 
-												'accept' : 'application/csv'}
+							headers: {'accept' : 'application/csv'}
 						}
 					).then(function(response){
 						response.blob().then(function(datablob)
