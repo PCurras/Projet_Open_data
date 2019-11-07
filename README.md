@@ -9,7 +9,11 @@ la conversion dans le pays dans lequel il souhaite voyager.
 Notre choix s'est donc positionné sur une API listant les pays, et des informations les concernant (monnaie, capitale, population...). 
 La seconde API contient des monnaies et le taux de change entre les différentes monnaies. 
 
-Ces deux API seront donc jointes par monnaies. 
+La première API est ***"Rest countries v1 API"***, elle est disponible sous : https://rapidapi.com/apilayernet/api/rest-countries-v1?fbclid=IwAR2jLpKuALWK2BpwV-co3bCn6QIxaCFNXzER9-mNRPNyzwik7kzpIBR1_ME .
+
+La seconde API est  ***"Currency Exchange API"***, et est disponible sous : https://rapidapi.com/fyhao/api/currency-exchange?endpoint=53aa60c0e4b0596140341c57&fbclid=IwAR1jYK4ZjBJICzJqnr8R1A-dbuoHQI7NHOc7dpuJYcve1eZAqalARh9uuzw .
+
+Ces deux API seront donc jointes par le code de la monnaie. 
 
 # Etape 2 - Côté client
 
