@@ -106,11 +106,6 @@ module.exports = function(app, express) {
                         });
 
                         req2.end();
-
-
-                        //*****************************************************************************************
-
-
                     });
                 });
                 req1.end();
@@ -156,16 +151,12 @@ module.exports = function(app, express) {
 
     //ROUTES
 
-    app.get('/', function (req, res) {
-        res.send('Hello, vous êtes à la racine de ce serveur ! allez voir /index')
-    })
-
     app.get('/country/:country', function (req, res) {
         var name_country = req.params.country;
         callAPIfromCountryName(name_country, res);
     })
 
-    app.get('/index', function (req, res) {
+    app.get('/', function (req, res) {
         fs.readFile('client.html', function (err, html) {
             if (err) {
                 res.writeHead(500, err.message)
@@ -177,7 +168,7 @@ module.exports = function(app, express) {
             res.end()
         })
     })
-    app.get('/index', function (req, res) {
+    app.get('/', function (req, res) {
         fs.readFile("stylesheet.css", function (err, css) {
             if (err) {
                 res.writeHead(500, err.message);
