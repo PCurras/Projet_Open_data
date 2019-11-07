@@ -37,7 +37,7 @@ Nous vous donnons le taux de conversion du dollars dans le pays sélectionné, a
 
 Alors n'hésitez plus, à vos clics !
 
-Notre site a été déployé sur Heroku, est est disponible à l'addresse suivante : ***https://countryproj.herokuapp.com/index***
+Notre site a été déployé sur Heroku, est est disponible à l'addresse suivante : ***https://countryproj.herokuapp.com***
 
 
 # Les différentes routes disponibles sur le site
