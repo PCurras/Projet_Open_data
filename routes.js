@@ -16,14 +16,14 @@ module.exports = function(app, express) {
             "method": "GET",
             "hostname": "restcountries-v1.p.rapidapi.com",
             "port": null,
-            "path": "/name/"+name_country,
+            "path": "/name/" + name_country,
             "headers": {
                 "x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
             }
         };
         res.format({
-            'application/json': function(){
+            'application/json': function () {
                 var req1 = http.request(options, function (res1) {
                     var chunks = [];
                     res1.on("data", function (chunk) {
@@ -34,8 +34,10 @@ module.exports = function(app, express) {
                         var body = Buffer.concat(chunks);
 
                         var json = JSON.parse(body.toString());
-                        var fullbody = json.map(function(data){ return (data) })[0]
-                        console.log(fullbody['currencies'][0],fullbody['population'],fullbody['translations']['fr']);
+                        var fullbody = json.map(function (data) {
+                            return (data)
+                        })[0]
+                        console.log(fullbody['currencies'][0], fullbody['population'], fullbody['translations']['fr']);
                         currency = fullbody['currencies'][0];
 
                         addConversionMoney(fullbody, res);
@@ -44,7 +46,7 @@ module.exports = function(app, express) {
                 });
                 req1.end();
             },
-            'text/csv': function(){
+            'text/csv': function () {
                 var req1 = http.request(options, function (res1) {
                     var chunks = [];
                     res1.on("data", function (chunk) {
@@ -55,8 +57,10 @@ module.exports = function(app, express) {
                         var body = Buffer.concat(chunks);
 
                         var json = JSON.parse(body.toString());
-                        var fullbody = json.map(function(data){ return (data) })[0]
-                        console.log(fullbody['currencies'][0],fullbody['population'],fullbody['translations']['fr']);
+                        var fullbody = json.map(function (data) {
+                            return (data)
+                        })[0]
+                        console.log(fullbody['currencies'][0], fullbody['population'], fullbody['translations']['fr']);
                         currency = fullbody['currencies'][0];
 
 
@@ -67,7 +71,7 @@ module.exports = function(app, express) {
                             "method": "GET",
                             "hostname": "currency-exchange.p.rapidapi.com",
                             "port": null,
-                            "path": "/exchange?q=1.0&from=EUR&to="+currency,
+                            "path": "/exchange?q=1.0&from=EUR&to=" + currency,
                             "headers": {
                                 "x-rapidapi-host": "currency-exchange.p.rapidapi.com",
                                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
@@ -89,10 +93,12 @@ module.exports = function(app, express) {
 
                                 //res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
                                 fullbody.conversionMoney = change;
-                                fields = ["name","topLevelDomain","alpha2Code","alpha3Code","callingCodes","capital","altSpellings","region","subregion","population","latlng","demonym","area","gini","timezones","borders","nativeName","numericCode","currencies","languages","translations","relevance","conversionMoney"]
+                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
 
-                                json2csvParser = new Json2csvparser({ fields })
-                                csv = json2csvParser.parse(fullbody, function(err){ res.redirect('/')})
+                                json2csvParser = new Json2csvparser({fields})
+                                csv = json2csvParser.parse(fullbody, function (err) {
+                                    res.redirect('/')
+                                })
                                 res.setHeader('Content-disposition', 'attachment; filename=test.csv')
                                 res.set('Content-Type', 'text/csv')
                                 res.status(200).send(csv)
@@ -100,10 +106,6 @@ module.exports = function(app, express) {
                         });
 
                         req2.end();
-
-
-
-
 
 
                         //*****************************************************************************************
@@ -123,7 +125,7 @@ module.exports = function(app, express) {
             "method": "GET",
             "hostname": "currency-exchange.p.rapidapi.com",
             "port": null,
-            "path": "/exchange?q=1.0&from=EUR&to="+currency,
+            "path": "/exchange?q=1.0&from=EUR&to=" + currency,
             "headers": {
                 "x-rapidapi-host": "currency-exchange.p.rapidapi.com",
                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
@@ -158,14 +160,14 @@ module.exports = function(app, express) {
         res.send('Hello, vous êtes à la racine de ce serveur ! allez voir /index')
     })
 
-    app.get('/country/:country' , function(req,res){
+    app.get('/country/:country', function (req, res) {
         var name_country = req.params.country;
         callAPIfromCountryName(name_country, res);
     })
 
-    app.get('/index', function(req,res) {
-        fs.readFile('client.html', function(err, html) {
-            if(err){
+    app.get('/index', function (req, res) {
+        fs.readFile('client.html', function (err, html) {
+            if (err) {
                 res.writeHead(500, err.message)
                 res.end()
             } else {
@@ -175,9 +177,9 @@ module.exports = function(app, express) {
             res.end()
         })
     })
-    app.get('/index', function(req, res) {
+    app.get('/index', function (req, res) {
         fs.readFile("stylesheet.css", function (err, css) {
-            if(err) {
+            if (err) {
                 res.writeHead(500, err.message);
                 res.end();
             } else {
@@ -190,3 +192,4 @@ module.exports = function(app, express) {
 
     // apply the routes to our application
     app.use('/', routes);
+}
