@@ -71,14 +71,14 @@ module.exports = function(app, express) {
                             "method": "GET",
                             "hostname": "currency-exchange.p.rapidapi.com",
                             "port": null,
-                            "path": "/exchange?q=1.0&from=EUR&to=" + currency,
+                            "path": "/exchange?q=1.0&from=EUR&to="+currency,
                             "headers": {
                                 "x-rapidapi-host": "currency-exchange.p.rapidapi.com",
                                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
                             }
                         };
+						
 
-                        // récupération du résultat de la requête 		
 						http.get(options2, (res2) => {
 							 console.log('statusCode:', res2.statusCode);
 							 //console.log('headers:', res2.headers);
@@ -88,19 +88,63 @@ module.exports = function(app, express) {
 							  if (sc.startsWith('2')== true) {
 									res2.on('data', (resultat) => {
 								var change = resultat.toString();
-								//res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
-								fullbody.conversionMoney = change;
-                                res.send(fullbody);
+								
+						        fullbody.conversionMoney = change;
+                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+
+                                json2csvParser = new Json2csvparser({fields})
+                                csv = json2csvParser.parse(fullbody, function (err) {
+                                    res.redirect('/')
+                                })
+                                res.setHeader('Content-disposition', 'attachment; filename=test.csv')
+                                res.set('Content-Type', 'text/csv')
+                                res.send(csv)
 							});
 							  } else {
-								  fullbody.conversionMoney = "not available";
-                                res.send(fullbody);
+						        fullbody.conversionMoney = "not available";
+                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+
+                                json2csvParser = new Json2csvparser({fields})
+                                csv = json2csvParser.parse(fullbody, function (err) {
+                                    res.redirect('/')
+                                })
+                                res.setHeader('Content-disposition', 'attachment; filename=test.csv')
+                                res.set('Content-Type', 'text/csv')
+                                res.send(csv)
 							  }
 						});
-							
-					});
-				});
-			req1.end();
+						
+                        // var req2 = http2.request(options2, function (res2) {
+                            // var chunks = [];
+
+                            // res2.on("data", function (chunk) {
+                                // chunks.push(chunk);
+                            // });
+
+                            // res2.on("end", function () {
+                                // var body = Buffer.concat(chunks);
+
+                                // console.log(body.toString());
+                                // change = body.toString();
+
+                                // res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
+                                // fullbody.conversionMoney = change;
+                                // fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+
+                                // json2csvParser = new Json2csvparser({fields})
+                                // csv = json2csvParser.parse(fullbody, function (err) {
+                                    // res.redirect('/')
+                                // })
+                                // res.setHeader('Content-disposition', 'attachment; filename=test.csv')
+                                // res.set('Content-Type', 'text/csv')
+                                // res.status(200).send(csv)
+                            // });
+                        // });
+
+                        // req2.end();
+                    });
+                });
+                req1.end();
             }
         })
     }
@@ -108,39 +152,38 @@ module.exports = function(app, express) {
     function addConversionMoney(fullbody, res) {
         var http = require("https");
 
-        var options = {
+        var options3 = {
             "method": "GET",
             "hostname": "currency-exchange.p.rapidapi.com",
             "port": null,
-            "path": "/exchange?q=1.0&from=EUR&to=" + currency,
+            "path": "/exchange?q=1.0&from=EUR&to="+currency,
             "headers": {
                 "x-rapidapi-host": "currency-exchange.p.rapidapi.com",
                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
             }
         };
 
-        var req = http.request(options, function (res2) {
-            var chunks = [];
+		// récupération du résultat de la requête 		
+		http.get(options3, (res2) => {
+			console.log('statusCode:', res2.statusCode);
+			//console.log('headers:', res2.headers);
+						
+			sc=res2.statusCode.toString();
 
-            res2.on("data", function (chunk) {
-                chunks.push(chunk);
-            });
-
-            res2.on("end", function () {
-                var body = Buffer.concat(chunks);
-
-                console.log(body.toString());
-                change = body.toString();
-
-                //res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
-                fullbody.conversionMoney = change;
-                res.send(fullbody);
-            });
-        });
-
-        req.end();
-    }
-
+			if (sc.startsWith('2')== true) {
+				res2.on('data', (resultat) => {
+					var change = resultat.toString();
+					//res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
+					fullbody.conversionMoney = change;
+					res.send(fullbody);
+				});
+			} else {
+				fullbody.conversionMoney = "not available";
+				res.send(fullbody);
+			}
+		});
+	}
+		
     //ROUTES
 
     app.get('/country/:country', function (req, res) {
