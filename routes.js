@@ -64,7 +64,7 @@ module.exports = function(app, express) {
 							"method": "GET",
 							"hostname": "currency-exchange.p.rapidapi.com",
 							"port": null,
-							"path": "/exchange?q=1.0&from=EUR&to="+currency,
+							"path": "/exchange?q=1.0&from=EUR&to=ABC",
 							"headers": {
 								"x-rapidapi-host": "currency-exchange.p.rapidapi.com",
 								"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
@@ -74,37 +74,25 @@ module.exports = function(app, express) {
 			// récupération du résultat de la requête 		
 						http.get(options2, (res2) => {
 							 console.log('statusCode:', res2.statusCode);
-							 console.log('headers:', res2.headers);
-							 
-							res2.on('error', (e) => {
-								console.error(e);
-							});
-							
-							res2.on('data', (resultat) => {
+							 //console.log('headers:', res2.headers);
+						
+							sc=res2.statusCode.toString();
+
+							  if (sc.startsWith('2')== true) {
+									res2.on('data', (resultat) => {
 								var change = resultat.toString();
 								//res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
 								fullbody.conversionMoney = change;
                                 res.send(fullbody);
 							});
-							
-							sc=res.statusCode.toString();
-
-							function test(statusCode) {
-							  if (sc.startsWith('2')== true) {
-								return "OK";
 							  } else {
-								return "NOT ok";
+								  fullbody.conversionMoney = "not available";
+                                res.send(fullbody);
 							  }
-							}
-
-							console.log(test(res.statusCode));
-						
 						});
+							
 					});
 				});
-
-							
-							//*****************************************************************************************
 
 			req1.end();	
 		   }
