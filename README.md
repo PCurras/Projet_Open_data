@@ -24,9 +24,9 @@ dans lequel sera disponible le taux de conversion de la monnaie (si plusieurs mo
 # REQUETES 
 Différentes requêtes ont été utilisées pour mener à bien ce projet, et récupérer les données nécessaires à notre projet.
 
-La requête permettant de récuperer les noms des pays est la suivante : *"GET https://restcountries-v1.p.rapidapi.com/name/nom_pays"
+La requête permettant de récuperer les noms des pays est la suivante : *"GET https://restcountries-v1.p.rapidapi.com/name/nom_pays"*
 
-La requête permettant de récuperer les taux de conversion entre monnaies est la suivante: *"GET https://currency-exchange.p.rapidapi.com/exchange"
+La requête permettant de récuperer les taux de conversion entre monnaies est la suivante: *"GET https://currency-exchange.p.rapidapi.com/exchange"*
 
 # Description du site 
 
@@ -37,5 +37,24 @@ Nous vous donnons le taux de conversion du dollars dans le pays sélectionné, a
 
 Alors n'hésitez plus, à vos clics !
 
+Notre site a été déployé sur Heroku, est est disponible à l'addresse suivante : ***https://countryproj.herokuapp.com/index***
 
-# rajouter les routes
+
+# Les différentes routes disponibles sur le site
+///////////////!\\\\\\\\\\\\\\\\\\ TO COMPLETE ///////////////!\\\\\\\\\\\\\\\\\\
+
+# Les difficultés rencontrées
+
+**1 - le choix de l'API ** 
+
+La première difficulté rencontrée a été le choix des API. Notre premier choix était d'utiliser l'API Open Food Facts, ainsi que l'API rest countries. L'objectif aurait été de pouvoir lister, par pays/ville, une liste d'ingrédient par catégorie (petit déjeuner/ diner...).
+La difficulté que nous avons rencontrée était dans l'utilisation de l'API d'Open Food Facts : le format des données était compliqué à utiliser, et le nettoyage des données aurait été trop chronophage. 
+
+Nous avons donc cherché une autre API pour la remplacer: nous avions trouvé une API sur la qualité de l'air par pays. Cependant, après une utilisation, cette API s'est bloquée, et est devenue payante.
+
+Nous avons donc trouvé notre API finale: celle rencensant les taux de change des monnaies. 
+
+Notre seconde difficulté a été la compréhension du sujet: nous n'avons aucune membre avec des compétences de développeur dans notre groupe, et le sujet a été compliqué à appréhender. 
+
+
+
