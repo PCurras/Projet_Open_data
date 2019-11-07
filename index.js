@@ -1,18 +1,5 @@
 var express = require("express");
 var app = express();
-<<<<<<< HEAD
-var csv = require('csv-express')
-const fs = require("fs");
-
-app.get('/user/:name', function(req, res) {
-	var age=''+req.query.age;
-	if(age!=="undefined" && age.trim().length){
-	res.send('Hello '  + req.params.name + ' tu as ' + age +' ans');
-	}else{
-	(res.send('Hello '  + req.params.name));
-	}
-})
-=======
 var csv = require("csv-express");
 var http = require("https");
 const fs = require("fs");
@@ -114,7 +101,6 @@ app.get('/currency/:country' , function(req,res){
 		});
 		req1.end();
 		})
->>>>>>> origin/Bapt_temp
 
 app.get('/index', function(req,res) {
 	fs.readFile('index.html', function(err, html) {
@@ -127,27 +113,6 @@ app.get('/index', function(req,res) {
 		res.write(html)
 		res.end()
 	})
-<<<<<<< HEAD
-
-})
-
-app.get('/names', function(req,res) {
-	res.format({
-		'application/json': function () {
-			res.json([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
-		},
-
-		'application/csv': function () {
-			res.csv([{name : 'toto'}, {name : 'baptiste'}, {name : 'gabriel'}]);
-		}
-	})
-})
-
-
-app.listen(3000, () => {
- console.log("Server running on port 3000");
-})
-=======
 })
 
 
@@ -155,5 +120,3 @@ app.listen(3000, () => {
 app.listen(3000, () => {
 	console.log("Server running on port 3000");
 })
-
->>>>>>> origin/Bapt_temp
