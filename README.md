@@ -36,6 +36,8 @@ De manière plus précise, la requête GET https://countryproj.herokuapp.com/cou
  - le code de la monnaie ("currencies"),
  - etc
  + l'équivalence de 1€ dans la monnaie nationale ("conversionMoney")  /Cette dernière donnée étant issue de la deuxième API choisie
+ 
+D'un point de vue technique, cette requête entraine un premier appel de notre serveur sur l'API *"Rest countries v1 API"* pour récupérer les premières données à partir du nom du pays. De ces données récupérées est extrait le code de la monnaie du pays. Ce code sert ensuite de paramètre pour la deuxième requête dirigée vers l'API *"Currency Exchange API"* qui nous permet de récupérer l'équivalent de 1€ dans la monnaie du pays. Cette donnée est ensuite regroupée avec les autres pour retourner l'ensemble au format JSON ou CSV (après conversion).
 
 Différentes requêtes sont utilisées pour mener à bien ce projet, et récupérer les données nécessaires :
 - *"GET https://restcountries-v1.p.rapidapi.com/all"* permet de récupérer les informations pour tous les pays et donc tous les noms des pays qui ont ensuite été stockés dans une variable pour l'auto-complétion côté client (cette requête a donc été réalisée qu'une seule fois),
