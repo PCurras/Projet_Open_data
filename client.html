@@ -31,8 +31,8 @@
 			<div>
 				<form id="select">
 					<div class="checkboxes">
-						<label for="currency"><input type="radio" name="selection" id="currency" /> <span>Currency</span></label>
-						<label for="capital"><input type="radio" name="selection" id="capital" /> <span> Capital</span></label>
+						<label for="currency"><input type="radio" name="select_box" id="currency" /> <span>Currency</span></label>
+						<label for="capital"><input type="radio" name="select_box" id="capital" /> <span> Capital</span></label>
 						<button id="selection_sub" type="button" onclick="selection();">Submit</button>
 					</div>
 				</form>
@@ -267,12 +267,24 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
+		#submitbtn:hover{
+			background-color:skyblue;
+		}
+		#submitbtn:active{
+			background-color:lightblue;
+		}
 		#selection_sub {
 			padding: 10px;
 			font-size: 16px;
 			border: 1px solid transparent;
 			background-color: DodgerBlue;
 			color: #fff;
+		}
+		#selection_sub:hover{
+			background-color:skyblue;
+		}
+		#selection_sub:active{
+			background-color:lightblue;
 		}
 		#select {
 			padding-left: 20px;
