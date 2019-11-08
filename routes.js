@@ -9,70 +9,70 @@ module.exports = function(app, express) {
 
     //TODO FUNCTIONS
 
-     function currency_function(name_country, res) {
-		var options = {
-			"method": "GET",
-			"hostname": "restcountries-v1.p.rapidapi.com",
-			"port": null,
-			"path": "/name/" + name_country,
-			"headers": {
-				"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
-				"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
-			}
-		};
+//      function currency_function(name_country, res) {
+// 		var options = {
+// 			"method": "GET",
+// 			"hostname": "restcountries-v1.p.rapidapi.com",
+// 			"port": null,
+// 			"path": "/name/" + name_country,
+// 			"headers": {
+// 				"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+// 				"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
+// 			}
+// 		};
 
-		var req = http.request(options, function (res1) {
-			var chunks = [];
-			res1.on("data", function (chunk) {
-				chunks.push(chunk);
-			});
+// 		var req = http.request(options, function (res1) {
+// 			var chunks = [];
+// 			res1.on("data", function (chunk) {
+// 				chunks.push(chunk);
+// 			});
 
-			res1.on("end", function () {
-				var body = Buffer.concat(chunks);
+// 			res1.on("end", function () {
+// 				var body = Buffer.concat(chunks);
 
-				var json = JSON.parse(body.toString());
-				var fullbody = json.map(function (data) {
-					return (data)
-				})[0]
-				currency = fullbody['currencies'][0];
-				res.send(currency);
-			});
-		});
-	req.end();
-	};
+// 				var json = JSON.parse(body.toString());
+// 				var fullbody = json.map(function (data) {
+// 					return (data)
+// 				})[0]
+// 				currency = fullbody['currencies'][0];
+// 				res.send(currency);
+// 			});
+// 		});
+// 	req.end();
+// 	};
 	
 	
-	function capital_function(name_country, res) {
-	var options = {
-		"method": "GET",
-		"hostname": "restcountries-v1.p.rapidapi.com",
-		"port": null,
-		"path": "/name/" + name_country,
-		"headers": {
-			"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
-			"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
-		}
-	};
+// 	function capital_function(name_country, res) {
+// 	var options = {
+// 		"method": "GET",
+// 		"hostname": "restcountries-v1.p.rapidapi.com",
+// 		"port": null,
+// 		"path": "/name/" + name_country,
+// 		"headers": {
+// 			"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+// 			"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
+// 		}
+// 	};
 
-	var req = http.request(options, function (res1) {
-		var chunks = [];
-		res1.on("data", function (chunk) {
-			chunks.push(chunk);
-		});
+// 	var req = http.request(options, function (res1) {
+// 		var chunks = [];
+// 		res1.on("data", function (chunk) {
+// 			chunks.push(chunk);
+// 		});
 
-		res1.on("end", function () {
-			var body = Buffer.concat(chunks);
+// 		res1.on("end", function () {
+// 			var body = Buffer.concat(chunks);
 
-			var json = JSON.parse(body.toString());
-			var fullbody = json.map(function (data) {
-				return (data)
-			})[0]
-			capital = fullbody['capital'];
-			res.send(capital);
-		});
-	});
-	req.end();
-	};
+// 			var json = JSON.parse(body.toString());
+// 			var fullbody = json.map(function (data) {
+// 				return (data)
+// 			})[0]
+// 			capital = fullbody['capital'];
+// 			res.send(capital);
+// 		});
+// 	});
+// 	req.end();
+// 	};
 					
 	
     function callAPIfromCountryName(name_country, res) {
@@ -179,36 +179,7 @@ module.exports = function(app, express) {
                                 res.send(csv)
 							  }
 						});
-						
-                        // var req2 = http2.request(options2, function (res2) {
-                            // var chunks = [];
-
-                            // res2.on("data", function (chunk) {
-                                // chunks.push(chunk);
-                            // });
-
-                            // res2.on("end", function () {
-                                // var body = Buffer.concat(chunks);
-
-                                // console.log(body.toString());
-                                // change = body.toString();
-
-                                // res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
-                                // fullbody.conversionMoney = change;
-                                // fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
-
-                                // json2csvParser = new Json2csvparser({fields})
-                                // csv = json2csvParser.parse(fullbody, function (err) {
-                                    // res.redirect('/')
-                                // })
-                                // res.setHeader('Content-disposition', 'attachment; filename=test.csv')
-                                // res.set('Content-Type', 'text/csv')
-                                // res.status(200).send(csv)
-                            // });
-                        // });
-
-                        // req2.end();
-                    });
+                 		});
                 });
                 req1.end();
             }
@@ -282,15 +253,15 @@ module.exports = function(app, express) {
         })
     })
 
-	app.get('/currency/:country', function (req, res) {
-		var name_country = req.params.country;
-		currency_function(name_country, res)
-	});
+// 	app.get('/currency/:country', function (req, res) {
+// 		var name_country = req.params.country;
+// 		currency_function(name_country, res)
+// 	});
 
-	app.get('/capital/:country', function (req, res) {
-		var name_country = req.params.country;
-		capital_function(name_country, res)
-	});
+// 	app.get('/capital/:country', function (req, res) {
+// 		var name_country = req.params.country;
+// 		capital_function(name_country, res)
+// 	});
 	
     // apply the routes to our application
     app.use('/', routes);
