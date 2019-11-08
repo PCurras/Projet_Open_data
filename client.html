@@ -25,7 +25,6 @@
 				  <div class="autocomplete" style="width:300px;">
 					<input id="search" type="text" name="country_choice" placeholder="Country">
 				  </div>
-					<button id="submitbtn" type="button" onclick="submit_fct();">Submit</button>
 				</form>
 			</div>
 <!-- 			<div>
@@ -33,7 +32,6 @@
 					<div class="checkboxes">
 						<label for="currency"><input type="radio" name="select_box" id="currency" /> <span>Currency</span></label>
 						<label for="capital"><input type="radio" name="select_box" id="capital" /> <span> Capital</span></label>
-						<button id="selection_sub" type="button" onclick="selection();">Submit</button>
 					</div>
 				</form>
 			</div> -->
@@ -186,28 +184,13 @@
 		}
 		
 		var country_name = "";
-		function submit_fct(){
-			country_name = "";
-			country_name = document.getElementById("search").value;
-			console.log(country_name)
-		}
-		
 		var route = "";
-		function selection(){
-			route = "/";
-			var possibilities = ["currency", "capital"];
-			possibilities.forEach(function(element){
-				if (document.getElementById(element).checked){
-					route += element + "/";
-				}
-			});
-			console.log(route);
-		}
-		
 		jsonbtn = document.getElementById("jsonbtn");
 		csvbtn = document.getElementById("csvbtn");
 		jsonbtn.onclick = function() {
 			console.log("clicked on json");
+			country_name = "";
+			country_name = document.getElementById("search").value;
 			if(route == ""){
 				route = "country/"+country_name;
 			}
@@ -219,6 +202,8 @@
 		}
 		csvbtn.onclick = function()	{
 			console.log("clicked on csv");
+			country_name = "";
+			country_name = document.getElementById("search").value;
 			if(route == ""){
 				route = "country/"+country_name;
 			}
@@ -256,35 +241,6 @@
 			font-size: 16px;
 			border: 2px solid #e1e1e1;
 			width: 100%;
-		}
-		#submitbtn {
-			padding: 10px;
-			font-size: 16px;
-			border: 1px solid transparent;
-			background-color: DodgerBlue;
-			color: #fff;
-			position: relative;
-			left: 50%;
-			transform: translateX(-50%);
-		}
-		#submitbtn:hover{
-			background-color:skyblue;
-		}
-		#submitbtn:active{
-			background-color:lightblue;
-		}
-		#selection_sub {
-			padding: 10px;
-			font-size: 16px;
-			border: 1px solid transparent;
-			background-color: DodgerBlue;
-			color: #fff;
-		}
-		#selection_sub:hover{
-			background-color:skyblue;
-		}
-		#selection_sub:active{
-			background-color:lightblue;
 		}
 		#select {
 			padding-left: 20px;
