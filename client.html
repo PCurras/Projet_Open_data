@@ -209,10 +209,10 @@
 		jsonbtn.onclick = function() {
 			console.log("clicked on json");
 			if(route == ""){
-				route += "country/"+country_name;
+				route = "country/"+country_name;
 			}
 			else{
-				route += country_name
+				route = country_name
 			}
 			console.log(route);
 			fetchjson(route);
@@ -220,10 +220,10 @@
 		csvbtn.onclick = function()	{
 			console.log("clicked on csv");
 			if(route == ""){
-				route += "country/"+country_name;
+				route = "country/"+country_name;
 			}
 			else{
-				route += country_name
+				route = country_name
 			}
 			console.log(route);
 			fetchcsv(route);
