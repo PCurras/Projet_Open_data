@@ -21,7 +21,7 @@ Le client pourra choisir son pays de voyage, ainsi que sa monnaie d'origine. Il 
 dans lequel sera disponible le taux de conversion de la monnaie (si plusieurs monnaies sont disponibles dans le pays, alors les différents taux de conversion seront fournis)
 
 
-# REQUETES 
+# Requetes 
 Différentes requêtes ont été utilisées pour mener à bien ce projet, et récupérer les données nécessaires à notre projet.
 
 La requête permettant de récuperer les noms des pays est la suivante : *"GET https://restcountries-v1.p.rapidapi.com/name/nom_pays"*
@@ -46,7 +46,7 @@ La route principale vers notre application est : https://countryproj.herokuapp.c
 
 # Les difficultés rencontrées
 
-** - le choix de l'API ** 
+**- le choix de l'API** 
 
 L'une de nos principales difficultés rencontrées a été le choix des API. Notre premier choix était d'utiliser l'API Open Food Facts, ainsi que l'API rest countries. L'objectif aurait été de pouvoir lister, par pays/ville, une liste d'ingrédient par catégorie (petit déjeuner/ diner...).
 La difficulté que nous avons rencontrée était dans l'utilisation de l'API d'Open Food Facts : le format des données était compliqué à utiliser, et le nettoyage des données aurait été trop chronophage. 
@@ -55,7 +55,7 @@ Nous avons donc cherché une autre API pour la remplacer: nous avions trouvé un
 
 Nous avons donc trouvé notre API finale: celle rencensant les taux de change des monnaies. 
  
-** - Le merge entre les deux API **
+**- Le merge entre les deux API**
 
 Notre seconde difficulté a été de récupérer l'information nous permettant de merger les deux API. 
 
