@@ -44,6 +44,8 @@ Notre site a été déployé sur Heroku, est est disponible à l'addresse suivan
 
 La route principale vers notre application est : https://countryproj.herokuapp.com
 
+La requête GET  https://countryproj.herokuapp.com/country/nom_du_pays permet de récupérer un ensemble de données géographiques ainsi que le taux de change pour 1€ dans la monnaie du pays choisi.
+
 # Les difficultés rencontrées
 
 **- le choix de l'API** 
