@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Projet Open Data</title>
+	</head>
+	
+	<body>
+		<header>
+			<div id="titre">
+				<h1>Geogr'API</h1>
+			</div>
+		</header>
+		<div>
+			<div id="description">
+				<p> Welcome to Geogr'API! Are you going on a trip, or are you just curious?
+					Are you leaving for Tunisia, and you want to know the conversion rate of your currency? A doubt about the capital?
+					So Geogr'API and made for you!
+					We give you the conversion rate of dollars in the selected country, as well as its capital, and other information that may be useful to you.
+					
+					So do not hesitate, your clicks!</p>
+			</div>
+			<div>
+				<form id="choose_country" autocomplete="off">
+				  <div class="autocomplete" style="width:300px;">
+					<input id="search" type="text" name="country_choice" placeholder="Country">
+				  </div>
+					<button id="submitbtn" type="button" onclick="submit_fct();">Submit</button>
+				</form>
+			</div>
+			<div>
+				<form id="select">
+					<div class="checkboxes">
+						<label for="currency"><input type="radio" name="select_box" id="currency" /> <span>Currency</span></label>
+						<label for="capital"><input type="radio" name="select_box" id="capital" /> <span> Capital</span></label>
+						<button id="selection_sub" type="button" onclick="selection();">Submit</button>
+					</div>
+				</form>
+			</div>
+			<div id="choose_format">
+				<p>Choose the response format : </p>
+				<FORM>
+					<input id="jsonbtn" type="radio" name="format" value="json"> JSON<br>
+					<input id="csvbtn" type="radio" name="format" value="csv"> CSV <br>
+				</FORM>
+			</div>
+			<div id="show_response">
+				Response :
+				<div id=datacontent>Waiting...</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+			
+		/*Autocomplétion - Code issu du site W3Schools*/
+		var countries = ["Afghanistan","Åland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","The Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bonaire","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","United States Minor Outlying Islands","Virgin Islands (British)","Virgin Islands (U.S.)","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Republic of the Congo","Democratic Republic of the Congo","Cook Islands","Costa Rica","Croatia","Cuba","Curaçao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern and Antarctic Lands","Gabon","The Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and McDonald Islands","Holy See","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ivory Coast","Iran","Iraq","Republic of Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Republic of Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Federated States of Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","North Korea","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn Islands","Poland","Portugal","Puerto Rico","Qatar","Republic of Kosovo","Réunion","Romania","Russia","Rwanda","Saint Barthélemy","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Martin","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","São Tomé and Príncipe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","East Timor","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"];
+		
+		function autocomplete(field, possibilities) {
+			/*the autocomplete function takes two arguments,
+			the text field element and an array of possible autocompleted values:*/
+			var currentFocus;
+			field.addEventListener("input", function(e) {
+				var a, b, i, val = this.value;
+				/*close any already open lists of autocompleted values*/
+				closeAllLists();
+				if (!val) { return false;}
+				currentFocus = -1;
+				/*create a DIV element that will contain the items (values):*/
+				a = document.createElement("DIV");
+				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("class", "autocomplete-items");
+				/*append the DIV element as a child of the autocomplete container:*/
+				this.parentNode.appendChild(a);
+				for (i = 0; i < possibilities.length; i++) {
+				/*check if the item starts with the same letters as the text field value:*/
+				if (possibilities[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+					/*create a DIV element for each matching element:*/
+					b = document.createElement("DIV");
+					/*make the matching letters bold:*/
+					b.innerHTML = "<strong>" + possibilities[i].substr(0, val.length) + "</strong>";
+					b.innerHTML += possibilities[i].substr(val.length);
+					/*insert a input field that will hold the current array item's value:*/
+					b.innerHTML += "<input type='hidden' value='" + possibilities[i] + "'>";
+					/*execute a function when someone clicks on the item value (DIV element):*/
+						b.addEventListener("click", function(e) {
+						/*insert the value for the autocomplete text field:*/
+						field.value = this.getElementsByTagName("input")[0].value;
+						/*close the list of autocompleted values,
+						(or any other open lists of autocompleted values:*/
+						closeAllLists();
+					});
+					a.appendChild(b);
+				}
+				}
+			});
+			/*execute a function presses a key on the keyboard:*/
+			field.addEventListener("keydown", function(e) {
+				var x = document.getElementById(this.id + "autocomplete-list");
+				if (x) x = x.getElementsByTagName("div");
+				if (e.keyCode == 40) {
+				/*If the arrow DOWN key is pressed,
+				increase the currentFocus variable:*/
+				currentFocus++;
+				/*and and make the current item more visible:*/
+				addActive(x);
+				} else if (e.keyCode == 38) { //up
+				/*If the arrow UP key is pressed,
+				decrease the currentFocus variable:*/
+				currentFocus--;
+				/*and and make the current item more visible:*/
+				addActive(x);
+				} else if (e.keyCode == 13) {
+				/*If the ENTER key is pressed, prevent the form from being submitted,*/
+				e.preventDefault();
+				if (currentFocus > -1) {
+					/*and simulate a click on the "active" item:*/
+					if (x) x[currentFocus].click();
+				}
+				}
+			});
+			function addActive(x) {
+			/*a function to classify an item as "active":*/
+			if (!x) return false;
+			/*start by removing the "active" class on all items:*/
+			removeActive(x);
+			if (currentFocus >= x.length) currentFocus = 0;
+			if (currentFocus < 0) currentFocus = (x.length - 1);
+			/*add class "autocomplete-active":*/
+			x[currentFocus].classList.add("autocomplete-active");
+			}
+			function removeActive(x) {
+			/*a function to remove the "active" class from all autocomplete items:*/
+			for (var i = 0; i < x.length; i++) {
+				x[i].classList.remove("autocomplete-active");
+			}
+			}
+			function closeAllLists(elmnt) {
+			/*close all autocomplete lists in the document,
+			except the one passed as an argument:*/
+			var x = document.getElementsByClassName("autocomplete-items");
+			for (var i = 0; i < x.length; i++) {
+				if (elmnt != x[i] && elmnt != field) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+			}
+		}
+		/*execute a function when someone clicks in the document:*/
+		document.addEventListener("click", function (e) {
+			closeAllLists(e.target);
+		});
+		}
+		element = document.getElementById("search")
+		autocomplete(element, countries); /*Active l'autocomplete*/
+		
+		/*Récupération des paramètres choisis par l'utilisateur + requêtes vers notre API*/
+		function fetchjson(route) {
+			fetch(route, 
+						{
+							method: 'GET',
+							headers: {'accept' : 'application/json'}
+						}
+					).then(function(response){
+						response.json().then(function(data)
+						{
+							document.getElementById("datacontent").innerHTML = JSON.stringify(data);
+						})
+					})
+		}
+		function fetchcsv(route) {
+			fetch(route, 
+						{
+							method: 'GET',
+							headers: {'accept' : 'text/csv'}
+						}
+					).then(function(response){
+						response.blob().then(function(datablob)
+						{
+							datablob.name = 'newfile.csv';
+							anchor = document.createElement('a');
+							anchor.download = datablob.name;
+							anchor.href = window.URL.createObjectURL(datablob);
+							anchor.dataset.downloadurl = ['application/csv', anchor.download, anchor.href].join(':');
+							anchor.click();
+						})
+					})
+		}
+		
+		var country_name = "";
+		function submit_fct(){
+			country_name = document.getElementById("search").value;
+			console.log(country_name)
+		}
+		
+		var route = "";
+		function selection(){
+			route = "/";
+			var possibilities = ["currency", "capital"];
+			possibilities.forEach(function(element){
+				if (document.getElementById(element).checked){
+					route += element + "/";
+				}
+			});
+			console.log(route);
+		}
+		
+		jsonbtn = document.getElementById("jsonbtn");
+		csvbtn = document.getElementById("csvbtn");
+		jsonbtn.onclick = function() {
+			console.log("clicked on json");
+			if(route == ""){
+				route += "country/"+country_name;
+			}
+			else{
+				route += country_name
+			}
+			console.log(route);
+			fetchjson(route);
+		}
+		csvbtn.onclick = function()	{
+			console.log("clicked on csv");
+			if(route == ""){
+				route += "country/"+country_name;
+			}
+			else{
+				route += country_name
+			}
+			console.log(route);
+			fetchcsv(route);
+		}
+	</script>
+	<style>
+		* { box-sizing: border-box; }
+		body {
+			font: 16px Arial;
+		}
+		#titre{
+			text-align: center;
+		}
+		#description{
+			text-align: justify;
+			padding: 50px 150px 20px 150px;
+		}
+		#choose_country{
+			padding: 30px;
+		}
+		.autocomplete {
+			/*the container must be positioned relative:*/
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+			display: inline-block;
+		}
+		input[type=text] {
+			padding: 10px;
+			font-size: 16px;
+			border: 2px solid #e1e1e1;
+			width: 100%;
+		}
+		#submitbtn {
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid transparent;
+			background-color: DodgerBlue;
+			color: #fff;
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		#submitbtn:hover{
+			background-color:skyblue;
+		}
+		#submitbtn:active{
+			background-color:lightblue;
+		}
+		#selection_sub {
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid transparent;
+			background-color: DodgerBlue;
+			color: #fff;
+		}
+		#selection_sub:hover{
+			background-color:skyblue;
+		}
+		#selection_sub:active{
+			background-color:lightblue;
+		}
+		#select {
+			padding-left: 20px;
+		}
+		.checkboxes label {
+			display: inline-block;
+			padding-right: 70px;
+			white-space: nowrap;
+		}
+		.checkboxes input {
+			padding-right:70px;
+			vertical-align: middle;
+		}
+		.checkboxes label span {
+			vertical-align: middle;
+		}
+		.autocomplete-items {
+			position: absolute;
+			border: 1px solid #d4d4d4;
+			border-bottom: none;
+			border-top: none;
+			z-index: 99;
+			background-color: white;
+			/*position the autocomplete items to be the same width as the container:*/
+			top: 100%;
+			left: 0;
+			right: 0;
+		}
+		.autocomplete-items div {
+			padding: 10px;
+			cursor: pointer;
+			border: 1px solid #d4d4d4;
+			background-color: white;
+		}
+		.autocomplete-items div:hover {
+			/*when hovering an item:*/
+			background-color: #e9e9e9;
+		}
+		.autocomplete-active {
+			/*when navigating through the items using the arrow keys:*/
+			background-color: #e9e9e9 !important;
+		}
+		#choose_format{
+			margin-bottom: 50px;
+			padding-left: 20px;
+		}
+		#show_response{
+			padding-left: 20px;
+		}
+		#show_response div{
+			margin-top: 10px;
+			padding: 20px 20px;
+			min-height: 300px;
+			border: 2px solid #e1e1e1;
+			background-color: #f9f9f9;
+		}
+	</style>
+</html>
+

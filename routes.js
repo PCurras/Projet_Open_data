@@ -9,6 +9,73 @@ module.exports = function(app, express) {
 
     //TODO FUNCTIONS
 
+     function currency_function(name_country, res) {
+		var options = {
+			"method": "GET",
+			"hostname": "restcountries-v1.p.rapidapi.com",
+			"port": null,
+			"path": "/name/" + name_country,
+			"headers": {
+				"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+				"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
+			}
+		};
+
+		var req = http.request(options, function (res1) {
+			var chunks = [];
+			res1.on("data", function (chunk) {
+				chunks.push(chunk);
+			});
+
+			res1.on("end", function () {
+				var body = Buffer.concat(chunks);
+
+				var json = JSON.parse(body.toString());
+				var fullbody = json.map(function (data) {
+					return (data)
+				})[0]
+				currency = fullbody['currencies'][0];
+				res.send(currency);
+			});
+		});
+	req.end();
+	};
+	
+	
+	function capital_function(name_country, res) {
+	var options = {
+		"method": "GET",
+		"hostname": "restcountries-v1.p.rapidapi.com",
+		"port": null,
+		"path": "/name/" + name_country,
+		"headers": {
+			"x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+			"x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
+		}
+	};
+
+	var req = http.request(options, function (res1) {
+		var chunks = [];
+		res1.on("data", function (chunk) {
+			chunks.push(chunk);
+		});
+
+		res1.on("end", function () {
+			var body = Buffer.concat(chunks);
+
+			var json = JSON.parse(body.toString());
+			var fullbody = json.map(function (data) {
+				return (data)
+				console.log(data);
+			})[0]
+			capital = fullbody['capital'];
+			res.send(capital);
+		});
+	});
+	req.end();
+	};
+					
+	
     function callAPIfromCountryName(name_country, res) {
         var http = require("https");
 
@@ -216,6 +283,16 @@ module.exports = function(app, express) {
         })
     })
 
+	app.get('/currency/:country', function (req, res) {
+		var name_country = req.params.country;
+		currency_function(name_country, res)
+	});
+
+	app.get('/capital/:country', function (req, res) {
+		var name_country = req.params.country;
+		capital_function(name_country, res)
+	});
+	
     // apply the routes to our application
     app.use('/', routes);
 }
