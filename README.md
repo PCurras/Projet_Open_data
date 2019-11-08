@@ -46,15 +46,20 @@ La route principale vers notre application est : https://countryproj.herokuapp.c
 
 # Les difficultés rencontrées
 
-** 1 - le choix de l'API ** 
+** - le choix de l'API ** 
 
-La première difficulté rencontrée a été le choix des API. Notre premier choix était d'utiliser l'API Open Food Facts, ainsi que l'API rest countries. L'objectif aurait été de pouvoir lister, par pays/ville, une liste d'ingrédient par catégorie (petit déjeuner/ diner...).
+L'une de nos principales difficultés rencontrées a été le choix des API. Notre premier choix était d'utiliser l'API Open Food Facts, ainsi que l'API rest countries. L'objectif aurait été de pouvoir lister, par pays/ville, une liste d'ingrédient par catégorie (petit déjeuner/ diner...).
 La difficulté que nous avons rencontrée était dans l'utilisation de l'API d'Open Food Facts : le format des données était compliqué à utiliser, et le nettoyage des données aurait été trop chronophage. 
 
 Nous avons donc cherché une autre API pour la remplacer: nous avions trouvé une API sur la qualité de l'air par pays. Cependant, après une utilisation, cette API s'est bloquée, et est devenue payante.
 
 Nous avons donc trouvé notre API finale: celle rencensant les taux de change des monnaies. 
  
-** 2 - 
+** - Le merge entre les deux API **
+
+Notre seconde difficulté a été de récupérer l'information nous permettant de merger les deux API. 
+
+
+
 
 
