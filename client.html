@@ -28,6 +28,15 @@
 					<button id="submitbtn" type="button" onclick="submit_fct();">Submit</button>
 				</form>
 			</div>
+			<div>
+				<form id="select">
+					<div class="checkboxes">
+						<label for="currency"><input type="radio" name="selection" id="currency" /> <span>Currency</span></label>
+						<label for="capital"><input type="radio" name="selection" id="capital" /> <span> Capital</span></label>
+						<button id="selection_sub" type="button" onclick="selection();">Submit</button>
+					</div>
+				</form>
+			</div>
 			<div id="choose_format">
 				<p>Choose the response format : </p>
 				<FORM>
@@ -176,22 +185,46 @@
 						})
 					})
 		}
-		jsonbtn = document.getElementById("jsonbtn");
-		csvbtn = document.getElementById("csvbtn");
+		
 		var country_name = "";
-		function	submit_fct(){
+		function submit_fct(){
 			country_name = document.getElementById("search").value;
 			console.log(country_name)
 		}
+		
+		var route = "";
+		function selection(){
+			route = "/";
+			var possibilities = ["currency", "capital"];
+			possibilities.forEach(function(element){
+				if (document.getElementById(element).checked){
+					route += element + "/";
+				}
+			});
+			console.log(route);
+		}
+		
+		jsonbtn = document.getElementById("jsonbtn");
+		csvbtn = document.getElementById("csvbtn");
 		jsonbtn.onclick = function() {
 			console.log("clicked on json");
-			var route = "/country/"+country_name;
+			if(route == ""){
+				route += "country/"+country_name;
+			}
+			else{
+				route += country_name
+			}
 			console.log(route);
 			fetchjson(route);
 		}
 		csvbtn.onclick = function()	{
 			console.log("clicked on csv");
-			var route = "country/"+country_name;
+			if(route == ""){
+				route += "country/"+country_name;
+			}
+			else{
+				route += country_name
+			}
 			console.log(route);
 			fetchcsv(route);
 		}
@@ -234,13 +267,35 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
+		#selection_sub {
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid transparent;
+			background-color: DodgerBlue;
+			color: #fff;
+		}
+		#select {
+			padding-left: 20px;
+		}
+		.checkboxes label {
+			display: inline-block;
+			padding-right: 70px;
+			white-space: nowrap;
+		}
+		.checkboxes input {
+			padding-right:70px;
+			vertical-align: middle;
+		}
+		.checkboxes label span {
+			vertical-align: middle;
+		}
 		.autocomplete-items {
 			position: absolute;
 			border: 1px solid #d4d4d4;
 			border-bottom: none;
 			border-top: none;
 			z-index: 99;
-			background: solid;
+			background-color: white;
 			/*position the autocomplete items to be the same width as the container:*/
 			top: 100%;
 			left: 0;
@@ -249,7 +304,8 @@
 		.autocomplete-items div {
 			padding: 10px;
 			cursor: pointer;
-			border-bottom: 1px solid #d4d4d4;
+			border: 1px solid #d4d4d4;
+			background-color: white;
 		}
 		.autocomplete-items div:hover {
 			/*when hovering an item:*/
@@ -257,8 +313,7 @@
 		}
 		.autocomplete-active {
 			/*when navigating through the items using the arrow keys:*/
-			/*background-color: DodgerBlue !important;*/
-			color: #ffffff;
+			background-color: #e9e9e9;
 		}
 		#choose_format{
 			margin-bottom: 50px;
