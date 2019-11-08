@@ -156,8 +156,8 @@ module.exports = function(app, express) {
 									res2.on('data', (resultat) => {
 								var change = resultat.toString();
 								
-						        fullbody.conversionMoney = change;
-                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+						        fullbody.euroToLocalMoney = change;
+                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "euroToLocalMoney"]
 
                                 json2csvParser = new Json2csvparser({fields})
                                 csv = json2csvParser.parse(fullbody, function (err) {
@@ -168,8 +168,8 @@ module.exports = function(app, express) {
                                 res.send(csv)
 							});
 							  } else {
-						        fullbody.conversionMoney = "not available";
-                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+						        fullbody.euroToLocalMoney = "not available";
+                                fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "euroToLocalMoney"]
 
                                 json2csvParser = new Json2csvparser({fields})
                                 csv = json2csvParser.parse(fullbody, function (err) {
@@ -195,8 +195,8 @@ module.exports = function(app, express) {
                                 // change = body.toString();
 
                                 // res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
-                                // fullbody.conversionMoney = change;
-                                // fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+                                // fullbody.euroToLocalMoney = change;
+                                // fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "euroToLocalMoney"]
 
                                 // json2csvParser = new Json2csvparser({fields})
                                 // csv = json2csvParser.parse(fullbody, function (err) {
@@ -241,11 +241,11 @@ module.exports = function(app, express) {
 				res2.on('data', (resultat) => {
 					var change = resultat.toString();
 					//res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
-					fullbody.conversionMoney = change;
+					fullbody.euroToLocalMoney = change;
 					res.send(fullbody);
 				});
 			} else {
-				fullbody.conversionMoney = "not available";
+				fullbody.euroToLocalMoney = "not available";
 				res.send(fullbody);
 			}
 		});
