@@ -2,7 +2,7 @@
 
 L'objectif général de ce projet était de construire une API joignant au moins deux APIs tierces pour proposer une version enrichie du contenu de l'une et de l'autre, tout en proposant deux formats de récupération des données. Après un début de recherche sur des APIs orientées vers d'autres thèmes, nous avons finalement axé notre projet sur un regroupement de données géographiques (d'où le nom Geograp'API).
 
-# Etape 1 - Choix des API
+## Etape 1 - Choix des API
 
 Notre objectif de départ était de créer une application simple à utiliser pour le client, et utile. Ainsi, à partir du nom d'un pays saisi par l'utilisateur (en anglais et avec une proposition d'auto-complétion), l'application renvoie un ensemble de données sur le pays en question avec en plus la conversion de 1€ dans la monnaie du pays sélectionné.
 
@@ -12,12 +12,12 @@ La seconde API, ***"Currency Exchange API"*** disponible sur https://rapidapi.co
 
 Ces deux API seront donc jointes par le code de la monnaie. 
 
-# Etape 2 - Côté client
+## Etape 2 - Côté client
 
 Grâce au fichier HTML créé dans un second temps, l'accès à l'API peut également se faire via un système "clic-bouton" simple : L'utilisateur saisi le nom d'un pays et le format dans lequel il souhaite récupérer ses données (entre JSON et CSV), et il reçoit en réponse un affichage des données en json ou un fichier CSV à télécharger, dans lequel sera disponible les informations sur le pays ainsi que l'équivalent de 1€ dans la monnaie du pays. Si plusieurs monnaies sont disponibles dans le pays, seul l'équivalence pour la première monnaie indiqué sera fourni.
 
 
-# Les routes et requêtes disponibles
+## Les routes et requêtes disponibles
 
 La route principale de notre API est https://countryproj.herokuapp.com, elle permet d'accéder à la page d'accueil côté client. Nous proposons ensuite une deuxième route de la forme : https://countryproj.herokuapp.com/country/country_name qui permet d'accéder aux données sur le pays ainsi qu'au taux de change présenté précédemment.
 
@@ -42,7 +42,7 @@ Différentes requêtes sont utilisées pour mener à bien ce projet, et récupé
 - *"GET https://restcountries-v1.p.rapidapi.com/name/nom_pays"* est la requête exécutée à chaque fois qu'un pays est saisi, elle renvoie les données indiquées ci-dessus, au format JSON ou CSV selon ce qui est spécifié dans le header de la requête ('application/json' ou 'text/csv'),
 - *"GET https://currency-exchange.p.rapidapi.com/exchange"* permet de récupérer le taux de conversion entre l'euro est la monnaie du pays.
 
-# Description du site 
+## Description du site 
 
 Bienvenue sur Geogr'API ! Vous partez en voyage, ou vous êtes simplement curieux ? 
 Vous partez en Tunisie, et vous souhaitez savoir le taux de conversion de votre monnaie ? Un doute sur la capitale ?
@@ -53,9 +53,9 @@ Alors n'hésitez plus, à vos clics !
 Notre site a été déployé sur Heroku, et est disponible à l'addresse suivante : ***https://countryproj.herokuapp.com***
 
 
-# Les difficultés rencontrées
+## Les difficultés rencontrées
 
-**- le choix de l'API** 
+**- Le choix de l'API** 
 
 L'une de nos principales difficultés rencontrées a été le choix des API. Notre premier choix était d'utiliser l'API Open Food Facts, ainsi que l'API rest countries. L'objectif aurait été de pouvoir lister, par pays/ville, une liste d'ingrédient par catégorie (petit déjeuner/ diner...).
 La difficulté que nous avons rencontrée était dans l'utilisation de l'API d'Open Food Facts : le format des données était compliqué à utiliser, et le nettoyage des données aurait été trop chronophage. 
