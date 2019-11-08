@@ -83,7 +83,7 @@ module.exports = function(app, express) {
             "method": "GET",
             "hostname": "restcountries-v1.p.rapidapi.com",
             "port": null,
-            "path": "/name/" + name_country,
+            "path": "/name/" + encodeURI(name_country),
             "headers": {
                 "x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
                 "x-rapidapi-key": "26e57b845amshaa9422739e19bd5p1d003djsnbd617bf3b072"
