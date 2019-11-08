@@ -66,6 +66,7 @@ module.exports = function(app, express) {
 			var json = JSON.parse(body.toString());
 			var fullbody = json.map(function (data) {
 				return (data)
+				console.log(data);
 			})[0]
 			capital = fullbody['capital'];
 			res.send(capital);
@@ -179,7 +180,36 @@ module.exports = function(app, express) {
                                 res.send(csv)
 							  }
 						});
-                 		});
+						
+                        // var req2 = http2.request(options2, function (res2) {
+                            // var chunks = [];
+
+                            // res2.on("data", function (chunk) {
+                                // chunks.push(chunk);
+                            // });
+
+                            // res2.on("end", function () {
+                                // var body = Buffer.concat(chunks);
+
+                                // console.log(body.toString());
+                                // change = body.toString();
+
+                                // res.send('Vous avez choisi le pays suivant : '  + name_country + '. Le code de la monnaie de ce pays est le suivant : ' + currency + '. La valeur de la conversion est de ' + change);
+                                // fullbody.conversionMoney = change;
+                                // fields = ["name", "topLevelDomain", "alpha2Code", "alpha3Code", "callingCodes", "capital", "altSpellings", "region", "subregion", "population", "latlng", "demonym", "area", "gini", "timezones", "borders", "nativeName", "numericCode", "currencies", "languages", "translations", "relevance", "conversionMoney"]
+
+                                // json2csvParser = new Json2csvparser({fields})
+                                // csv = json2csvParser.parse(fullbody, function (err) {
+                                    // res.redirect('/')
+                                // })
+                                // res.setHeader('Content-disposition', 'attachment; filename=test.csv')
+                                // res.set('Content-Type', 'text/csv')
+                                // res.status(200).send(csv)
+                            // });
+                        // });
+
+                        // req2.end();
+                    });
                 });
                 req1.end();
             }
